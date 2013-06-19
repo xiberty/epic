@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>codigo fuente</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/fonts.css">
+	<link rel="stylesheet" href="css/common.css">		
+</head>
+<body id="codigo_fuente">
+	<div class="row">
+		<div class="span4"></div>
+		<div class="span8">
+			<h2>codigo fuente</h2>
+			<form action="" class="form">
+				<div class="control-group">
+					<label for="titulo" class="control-label">Titulo</label>
+					<div class="controls">
+						<input type="text" id="titulo" placeholder="Nombre de la codigo fuente">
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="llavedepublicaion" class="control-label">Llave de publicacion</label>
+					<div class="controls">
+						<input type="text" id="llavedepublicaion" placeholder="Nombre de la codigo fuente">
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="tamanio" class="control-label">tamaño</label>
+					<div class="controls">
+						<input type="text" id="tamanio" placeholder="Nombre de la codigo fuente">
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="archivo" class="control-label">Archivo</label>
+					<div class="controls">
+						<input type="text" id="archivo" placeholder="Nombre de la codigo fuente">
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="fechapub" class="control-label">Fecha Elaboracion del codigo fuente</label>
+					<div class="controls">
+						<input type="date" id="fechapub" placeholder="Nombre de la codigo fuente">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label for="extension" class="control-label">Extensión</label>
+					<div class="controls">
+						<input type="text" id="extension" placeholder="Nombre de la codigo fuente">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label for="version" class="control-label">version de codigo fuente</label>
+					<div class="controls">
+						<input type="text" id="version" placeholder="Nombre de la codigo fuente">
+					</div>
+				</div>
+				
+				
+			    <div class="control-group">
+					<label for="so" class="control-label">sistema operativo</label>
+					<div class="controls">
+						<input type="text" id="so" placeholder="Nombre de la codigo fuente">
+					</div>
+				</div>
+
+                <div class="control-group">
+					<label for="link" class="control-label">link oficial</label>
+					<div class="controls">
+						<input type="text" id="link" placeholder="Nombre de la codigo fuente">
+					</div>
+				</div>
+				
+
+				<div class="control-group">
+					<label for="lenguaje" class="control-label">lenguaje</label>
+					<div class="controls">
+						<input type="text" id="lenguaje" placeholder="Nombre de la codigo fuente">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label for="resenia" class="control-label">Reseña</label>
+					<div class="controls">
+						<input type="text" id="resenia" placeholder="escriba su reseña">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label for="metodologia" class="control-label">metodologia</label>
+					<div class="controls">
+						<input type="text" id="metodologia" placeholder="Nombre de la codigo fuente">
+					</div>
+				</div>				
+				<div class="control-group">
+					<label for="nombremat" class="control-label">Materia</label>
+					<select id="mat" >
+						{{#rows}}
+						<option value="{{CODMAT}}">{{nombre}} - {{sigla}}</option>
+						{{/rows}}
+					</select>
+				</div>
+				<div class="control-group">
+					<label for="nombremat" class="control-label">Categoría</label>
+					<select id="cat" >
+						{{#rows}}
+						<option value="{{codacat}}">{{nombre}}</option>
+						{{/rows}}
+					</select>
+				</div>
+				<div class="control-group">
+					<label for="nombremat" class="control-label">Tipo de publicación</label>
+					<select id="tp" >
+						{{#rows}}
+						<option value="{{CODTP}}">{{descripcion}}</option>
+						{{/rows}}
+					</select>
+				</div>
+				<div class="control-group">
+					<label for="nombremat" class="control-label">Licencia</label>
+					<select id="lic" >
+						{{#rows}}
+						<option value="{{codlic}}">{{tipo}} - {{montocosto}}</option>
+						{{/rows}}
+					</select>
+				</div>
+				
+
+				<div class="control-group">
+					<div class="controls">
+						<button id ="save" class="btn btn-success">Guardar</button>
+						<button id ="clean" class="btn btn-info">Limpiar</button>
+						<button id ="cancel" class="btn btn-danger">Cancelar</button>
+					</div>
+				</div>
+			</form>			
+		</div>
+		<div class="span4"></div>
+	</div>
+	<div class="row">
+		<div class="span4"></div>
+		<div class="span8" id="lista">
+				
+		</div>
+		<div class="span4"></div>
+	</div>
+
+	<aside>
+		{{#materias}}
+		<div class="item">
+			<span class="id small">{{id}}</span>
+			<span class="nombre">{{nombre}}</span>
+			<span class="sigla small">{{sigla}}</span>
+			<i class="edit icon-pencil"><span>Editar</span></i>
+			<i class="delete icon-cancel-2"><span>Eliminar</span></i>
+		</div>
+		{{/materias}}
+	</aside>
+	
+
+	<script src="js/jquery.js"></script>	
+	<script src="js/mustache.js"></script>	
+	<script src="js/lib.js"></script>	
+	<script src="js/bootstrap.js"></script>
+	<script src="js/main.js"></script>
+	<script>
+		$(document).on('ready',function(){
+
+			$('body').on('Render',function(e,data){
+				ui(data.temp).load(data.temp, data);
+			});
+
+			Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
+			Getter( 'materia', 'CODMAT|nombre|sigla', '#mat' );
+			Getter( 'licencia', 'codlic|tipo|motocosto', '#lic' );
+			Getter( 'categoria', 'codcat|nombre', '#cat' );
+			Getter( 'tipopublicacion', 'CODTP|descripcion', '#tp' );
+
+			// Click en el boton Guardar
+			$('#save').click(function(e){
+				e.preventDefault();
+				var nombremat = $('#nombremat').val();
+				var siglamat = $('#siglamat').val();
+
+				var json = { nombre:nombremat, sigla:siglamat, op:'new' };
+				console.log(json);
+				Ajax('core/materia_abm.php', json ).sending();
+
+				Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
+			});
+
+
+			// Eventos personalizados
+			$('body').on('LoadItems', function(e,data){
+				// ui(a_donde).loader( en_que, que_cosas );
+				ui('#lista').load('aside', data);
+			});
+
+
+
+		});
+		
+			// Click en os botones editar
+			$('body').on('click', '.delete', function(e){
+
+				if(confirm('¿Seguro que quieres eliminar esta materia?')) {
+					var id = e.currentTarget.parentNode.childNodes[1].innerText;
+					var json = { id:id, op:'delete' }
+
+					Ajax('core/materia_abm.php', json ).sending();
+					Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
+				}
+			});
+	</script>
+</body>
+</html>

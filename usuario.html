@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>usuario</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/fonts.css">
+	<link rel="stylesheet" href="css/common.css">		
+</head>
+<body id="usuario">
+	<div class="row">
+		<div class="span4"></div>
+		<div class="span8">
+			<h2>usuario</h2>
+			<form action="" class="form">
+				<div class="control-group">
+					<label for="nombre" class="control-label">nombre</label>
+					<div class="controls">
+						<input type="text" id="nombre" placeholder="Nombre del usuario">
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="apellido" class="control-label">apellido</label>
+					<div class="controls">
+						<input type="text" id="apellido" placeholder="apellido del usuario">
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="sexo" class="control-label">Genero</label>
+					<div class="controls">
+						<input type="text" id="sexo" placeholder="f si es femenino y m si es masculino">
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="username" class="control-label">username</label>
+					<div class="controls">
+						<input type="text" id="username" placeholder="username del usuario">
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="pasword" class="control-label">contaseña</label>
+					<div class="controls">
+						<input type="text" id="pasword" placeholder="contraseña del usuario">
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="fechanac" class="control-label">Fecha Nacimiento</label>
+					<div class="controls">
+						<input type="date" id="fechanac" placeholder="fecha de nacimiento del usuario">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label for="nacionalidad" class="control-label">nacionalidad</label>
+					<div class="controls">
+						<input type="text" id="nacionalidad" placeholder="nacionalidad del usuario">
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label for="correo" class="control-label">correo oficial</label>
+					<div class="controls">
+						<input type="text" id="correo" placeholder="correo del usuario">
+					</div>
+				</div>
+
+				
+				<div class="control-group">
+					<label for="tipo" class="control-label">tipo</label>
+					<select id="tipo" >
+						{{#rows}}
+						<option value="{{codt}}">  {{nombret}}</option>
+						{{/rows}}
+					</select>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button id ="save" class="btn btn-success">Guardar</button>
+						<button id ="clean" class="btn btn-info">Limpiar</button>
+						<button id ="cancel" class="btn btn-danger">Cancelar</button>
+					</div>
+				</div>
+			</form>			
+		</div>
+		<div class="span4"></div>
+	</div>
+	<div class="row">
+		<div class="span4"></div>
+		<div class="span8" id="lista">
+				
+		</div>
+		<div class="span4"></div>
+	</div>
+
+	<aside>
+		{{#materias}}
+		<div class="item">
+			<span class="id small">{{id}}</span>
+			<span class="nombre">{{nombre}}</span>
+			<span class="sigla small">{{sigla}}</span>
+			<i class="edit icon-pencil"><span>Editar</span></i>
+			<i class="delete icon-cancel-2"><span>Eliminar</span></i>
+		</div>
+		{{/materias}}
+	</aside>
+	
+
+	<script src="js/jquery.js"></script>	
+	<script src="js/mustache.js"></script>	
+	<script src="js/lib.js"></script>	
+	<script src="js/bootstrap.js"></script>
+	<script src="js/main.js"></script>
+	<script>
+		$(document).on('ready',function(){
+
+			$('body').on('Render',function(e,data){
+				ui(data.temp).load(data.temp, data);
+			});
+
+			Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
+			Getter( 'tipo', 'codt|nombret', '#tipo' );
+			// Click en el boton Guardar
+			$('#save').click(function(e){
+				e.preventDefault();
+				var nombremat = $('#nombremat').val();
+				var siglamat = $('#siglamat').val();
+
+				var json = { nombre:nombremat, sigla:siglamat, op:'new' };
+				console.log(json);
+				Ajax('core/materia_abm.php', json ).sending();
+
+				Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
+			});
+
+
+			// Eventos personalizados
+			$('body').on('LoadItems', function(e,data){
+				// ui(a_donde).loader( en_que, que_cosas );
+				ui('#lista').load('aside', data);
+			});
+
+
+
+		});
+		
+			// Click en os botones editar
+			$('body').on('click', '.delete', function(e){
+
+				if(confirm('¿Seguro que quieres eliminar esta materia?')) {
+					var id = e.currentTarget.parentNode.childNodes[1].innerText;
+					var json = { id:id, op:'delete' }
+
+					Ajax('core/materia_abm.php', json ).sending();
+					Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
+				}
+			});
+	</script>
+</body>
+</html>
