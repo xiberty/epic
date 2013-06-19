@@ -81,7 +81,7 @@ function ui(id){
 		clean : function(){
 			document.getElementById(id).reset();
 		},
-		loader : function( tmp, data ){
+		load : function( tmp, data ){
 			var temp = $(tmp).html().trim();
 			$(id).html();
 			var html = Mustache.to_html( temp, data );
@@ -111,13 +111,11 @@ function trim(str) {
  
 function Getter( table, cols, temp ){
 	data = { 'cols':cols, 'table':table, 'temp':temp };
-	Ajax('core/getter.php', { 'cols':cols, 'table':table, 'temp':temp }, 'Render').activate();
+	Ajax('core/getter.php', data, 'Render').activate();
 }
 
-$(document).on('ready,',function(){
-	$('body').on('Render',function(e,data){
-		console.log('Se rendeara');
-		console.log(data);
-		ui(data.temp).load(data.temp, data.fill);
-	});
-});
+
+function Saver( table, cols, values ){
+	data = { 'cols':cols, 'table':table, 'values':values };
+	Ajax( 'core/saver.php', data).send();
+}
