@@ -25,7 +25,6 @@
 						<input type="text" id="descripcion" placeholder="descripcion del reconocimiento">
 					</div>
 				</div>
-				
 				<div class="control-group">
 					<label for="usuario" class="control-label">usuario</label>
 					<select id="usuario" >
@@ -83,7 +82,7 @@
 			$('#save').click(function(e){
 				e.preventDefault();
 				alert('Seguardaran los camios');
-				var table="tesis";
+				var table="reconocimiento";
 				var cols = "titulo|tamanio|idioma|rutaubic|CODMAT|CODCAT|CODTP|CODLIC|fecha_elaboracion|extension|codtesis|descripcion";
 				var values = $('#titulo').val() + "|"+ $('#tamanio').val() + "|" + $('#idioma').val() + "|" + $('#archivo').val()+"|";
 				values += $('#mat').val() + "|" + $('#cat').val() + "|" + $('#tp').val() + "|" + $('#lic').val() + "|" + $('#fecha').val() + "|";
