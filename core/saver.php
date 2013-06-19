@@ -9,7 +9,7 @@
 	$cols = explode("|",$cc);
 	$values = explode("|",$ca);
 
-	$sql = "INSERT INTO ".$table."(";
+	$sql = "INSERT INTO ".$table." (";
 
 	foreach ($cols as $col => $value) {
 		$sql .= $value;
@@ -27,8 +27,8 @@
 		}
 	}
 
-	$sql .=";";
-
+	$sql .=");";
+	echo $sql;
 	@mysql_query($sql,$con) or die('Error: Consulta  Fallida : $table '.mysql_error());
 	echo "Consulta Exitosa";
 ?>

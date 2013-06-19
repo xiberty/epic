@@ -14,45 +14,52 @@
 			<h2>Materia</h2>
 			<form action="" class="form">
 				<div class="control-group">
-					<label for="nombremat" class="control-label">Titulo</label>
+					<label for="titulo" class="control-label">Titulo</label>
 					<div class="controls">
-						<input type="text" id="nombremat" placeholder="Nombre de la Materia">
+						<input type="text" id="titulo" placeholder="Nombre de la Materia">
 					</div>
 				</div>
 				<div class="control-group">
-					<label for="nombremat" class="control-label">Tamaño</label>
+					<label for="tamanio" class="control-label">Tamaño</label>
 					<div class="controls">
-						<input type="text" id="nombremat" placeholder="Nombre de la Materia">
+						<input type="text" id="tamanio" placeholder="Nombre de la Materia">
 					</div>
 				</div>
 				<div class="control-group">
-					<label for="nombremat" class="control-label">Idioma</label>
+					<label for="idioma" class="control-label">Idioma</label>
 					<div class="controls">
-						<input type="text" id="nombremat" placeholder="Nombre de la Materia">
+						<input type="text" id="idioma" placeholder="Nombre de la Materia">
 					</div>
 				</div>
 				<div class="control-group">
-					<label for="nombremat" class="control-label">Archivo</label>
+					<label for="archivo" class="control-label">Archivo</label>
 					<div class="controls">
-						<input type="text" id="nombremat" placeholder="Nombre de la Materia">
+						<input type="text" id="archivo" placeholder="Nombre de la Materia">
 					</div>
 				</div>
 				<div class="control-group">
-					<label for="nombremat" class="control-label">Fecha Publicación</label>
+					<label for="fecha" class="control-label">Fecha Publicación</label>
 					<div class="controls">
-						<input type="date" id="nombremat" placeholder="Nombre de la Materia">
+						<input type="date" id="fecha" placeholder="Nombre de la Materia">
 					</div>
 				</div>
 				<div class="control-group">
-					<label for="nombremat" class="control-label">Extensión</label>
+					<label for="extension" class="control-label">Extensión</label>
 					<div class="controls">
-						<input type="text" id="nombremat" placeholder="Nombre de la Materia">
+						<input type="text" id="extension" placeholder="Nombre de la Materia">
 					</div>
 				</div>
 				<div class="control-group">
-					<label for="nombremat" class="control-label">descripción</label>
+					<label for="descripcion" class="control-label">descripción</label>
 					<div class="controls">
-						<input type="text" id="nombremat" placeholder="Nombre de la Materia">
+						<input type="text" id="descripcion" placeholder="Nombre de la Materia">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label for="codtesis" class="control-label">descripción</label>
+					<div class="controls">
+						<input type="text" id="codtesis" placeholder="Nombre de la Materia">
 					</div>
 				</div>
 
@@ -143,12 +150,17 @@
 			// Click en el boton Guardar
 			$('#save').click(function(e){
 				e.preventDefault();
-				var nombremat = $('#nombremat').val();
-				var siglamat = $('#siglamat').val();
+				alert('Seguardaran los camios');
+				var table="tesis";
+				var cols = "titulo|tamanio|idioma|rutaubic|CODMAT|CODCAT|CODTP|CODLIC|fecha_elaboracion|extension|codtesis|descripcion";
+				var values = $('#titulo').val() + "|"+ $('#tamanio').val() + "|" + $('#idioma').val() + "|" + $('#archivo').val()+"|";
+				values += $('#mat').val() + "|" + $('#cat').val() + "|" + $('#tp').val() + "|" + $('#lic').val() + "|" + $('#fecha').val() + "|";
+				values += $('#extension').val() + "|" + $('#codtesis').val()+ "|" + $('#descripcion').val();
 
-				var json = { nombre:nombremat, sigla:siglamat, op:'new' };
-				console.log(json);
-				Ajax('core/materia_abm.php', json ).sending();
+				console.log('values-------------------------------------------');	
+				console.log(values);
+				console.log('-------------------------------------------');	
+				Saver(table,cols,values);
 
 				Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
 			});
@@ -169,9 +181,9 @@
 
 				if(confirm('¿Seguro que quieres eliminar esta materia?')) {
 					var id = e.currentTarget.parentNode.childNodes[1].innerText;
-					var json = { id:id, op:'delete' }
 
-					Ajax('core/materia_abm.php', json ).sending();
+					Remover('tesis','codts',id);
+
 					Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
 				}
 			});

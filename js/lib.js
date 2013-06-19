@@ -119,3 +119,8 @@ function Saver( table, cols, values ){
 	data = { 'cols':cols, 'table':table, 'values':values };
 	Ajax( 'core/saver.php', data).send();
 }
+
+function Remover( table, col, val ){
+	data = { 'col':col, 'table':table, 'val':val };
+	Ajax( 'core/remover.php', data).send();
+}
