@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="css/bootstrap.css">	
+	<link rel="stylesheet" href="css/fonts.css">
+	<link rel="stylesheet" href="css/common.css">	
+</head>
+<body id="categoria">
+	<div class="row">
+		<div class="span4"></div>
+		<div class="span8">
+			<h2>Categoria</h2>
+			<form action="" class="form">
+				<div class="control-group">
+					<label for="nombrecat" class="control-label">Categoria</label>
+					<div class="controls">
+						<input type="text" id="nombrecat" placeholder="Nombre de la Categoria">
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button id ="save" class="btn btn-success">Guardar</button>
+						<button id ="clean" class="btn btn-info">Limpiar</button>
+						<button id ="cancel" class="btn btn-danger">Cancelar</button>
+						<button id ="listar" class="btn btn-warning">Listar</button>
+					</div>
+				</div>
+			</form>			
+		</div>
+		<div class="span4"></div>
+	</div>
+	<div class="row">
+		<div class="span4"></div>
+		<div class="span8" id="lista">
+			
+			
+
+		</div>
+		<div class="span4"></div>
+	</div>
+
+<!-- Plantilla para mustache -->
+	<aside>
+	{{#categorias}}
+		<div class="item">
+			<span class="id small">{{id}}</span>
+			<span class="nombre">{{nombre}}</span>
+			<i class="edit icon-cancel-2"></i>
+			<i class="delete icon-pencil"></i>
+		</div>
+	{{/categorias}}
+	</aside>
+<!--  Final de la plantilla-->
+
+	<script src="js/jquery.js"></script>	
+	<script src="js/mustache.js"></script>	
+	<script src="js/lib.js"></script>	
+	<script src="js/bootstrap.js"></script>
+	<script src="js/main.js"></script>
+
+	<script>
+		$(document).on('ready',function(){
+			Ajax('core/categoria_ls.php', {}, 'LoadItems').activate();
+			// Eventos personalizados
+			$('body').on('LoadItems', function(e,data){
+				// ui(a_donde).loader( en_que, que_cosas );
+				ui('#lista').loader('aside', data);
+			});
+		});
+	</script>
+</body>
+</html>
