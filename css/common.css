@@ -84,3 +84,17 @@
 aside{
 	display: none;
 }
+
+#lista{
+	margin-top: 10px;
+}
+
+#lista:before{
+	content: "Lista de Elementos";
+	font-weight: 800;
+	font-size: 23px;
+	color: gray;
+	padding: 30px 0px;
+	margin: 30px 0px;
+	line-height: 50px;
+}

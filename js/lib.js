@@ -124,3 +124,37 @@ function Remover( table, col, val ){
 	data = { 'col':col, 'table':table, 'val':val };
 	Ajax( 'core/remover.php', data).send();
 }
+
+// ********************************************* Función para cargar archivos al server
+
+function uploadFile( file ){
+	//5MB
+	var limit = 1048576*2,xhr;
+
+	console.log( limit  )
+
+	if( file ){
+		if( file.size < limit ){
+
+			xhr = new XMLHttpRequest();
+
+			xhr.upload.addEventListener('load',function(e){
+				alert('Archivo cargado exitosamente!');
+			}, false);
+
+			xhr.upload.addEventListener('error',function(e){
+				alert('Ha habido un error :/');
+			}, false);
+
+			xhr.open('POST','core/upload.php');
+
+            xhr.setRequestHeader("Cache-Control", "no-cache");
+            xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+            xhr.setRequestHeader("X-File-Name", file.name);
+
+            xhr.send(file);
+		}else{
+			alert('El archivo es mayor que 2MB!');
+		}
+	}
+}

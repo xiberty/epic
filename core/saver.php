@@ -21,7 +21,7 @@
 	$sql .=") VALUES (";
 
 	foreach ($values as $val => $value) {
-		$sql .= $value;
+		$sql .= "'".$value."'";
 		if ( $val != (count($values)-1) ) {
 			$sql .=",";
 		}
@@ -29,6 +29,6 @@
 
 	$sql .=");";
 	echo $sql;
-	@mysql_query($sql,$con) or die('Error: Consulta  Fallida : $table '.mysql_error());
+	@mysql_query($sql,$con) or die('Error: Consulta  Fallida :'.$table.' '.mysql_error());
 	echo "Consulta Exitosa";
 ?>

@@ -156,7 +156,6 @@
 				ui(data.temp).load(data.temp, data);
 			});
 
-			Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
 			Getter( 'materia', 'CODMAT|nombre|sigla', '#mat' );
 			Getter( 'licencia', 'codlic|tipo|motocosto', '#lic' );
 			Getter( 'categoria', 'codcat|nombre', '#cat' );
@@ -191,9 +190,8 @@
 
 				if(confirm('¿Seguro que quieres eliminar esta materia?')) {
 					var id = e.currentTarget.parentNode.childNodes[1].innerText;
-					var json = { id:id, op:'delete' }
+					Remover( 'tesis', 'codts', id )
 
-					Ajax('core/materia_abm.php', json ).sending();
 					Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
 				}
 			});

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Materia</title>
+	<title>Tesis - Multinext</title>
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/fonts.css">
 	<link rel="stylesheet" href="css/common.css">		
@@ -10,8 +10,8 @@
 <body id="materia">
 	<div class="row">
 		<div class="span4"></div>
-		<div class="span8">
-			<h2>Materia</h2>
+		<div class="span4">
+			<h2>Tesis</h2>
 			<form action="" class="form">
 				<div class="control-group">
 					<label for="titulo" class="control-label">Titulo</label>
@@ -34,7 +34,7 @@
 				<div class="control-group">
 					<label for="archivo" class="control-label">Archivo</label>
 					<div class="controls">
-						<input type="text" id="archivo" placeholder="Nombre de la Materia">
+						<input type="file" id="archivo" placeholder="Nombre de la Materia">
 					</div>
 				</div>
 				<div class="control-group">
@@ -57,7 +57,7 @@
 				</div>
 
 				<div class="control-group">
-					<label for="codtesis" class="control-label">descripción</label>
+					<label for="codtesis" class="control-label">Codigo Tesis</label>
 					<div class="controls">
 						<input type="text" id="codtesis" placeholder="Nombre de la Materia">
 					</div>
@@ -106,26 +106,20 @@
 				</div>
 			</form>			
 		</div>
-		<div class="span4"></div>
-	</div>
-	<div class="row">
-		<div class="span4"></div>
-		<div class="span8" id="lista">
-				
+		<div class="span4" id="lista">
+			
 		</div>
-		<div class="span4"></div>
 	</div>
-
 	<aside>
-		{{#materias}}
-		<div class="item">
-			<span class="id small">{{id}}</span>
-			<span class="nombre">{{nombre}}</span>
-			<span class="sigla small">{{sigla}}</span>
-			<i class="edit icon-pencil"><span>Editar</span></i>
-			<i class="delete icon-cancel-2"><span>Eliminar</span></i>
-		</div>
-		{{/materias}}
+		{{#rows}}
+			<div class="item">
+				<span class="id small">{{codts}}</span>
+				<span class="nombre">{{titulo}}</span>
+				<span class="sigla small"><a href="uploads/{{rutaubic}}">Archivo</a></span>
+				<i class="edit icon-pencil"><span>Editar</span></i>
+				<i class="delete icon-cancel-2"><span>Eliminar</span></i>
+			</div>
+		{{/rows}}		
 	</aside>
 	
 
@@ -141,7 +135,10 @@
 				ui(data.temp).load(data.temp, data);
 			});
 
-			Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
+			$('#lista').html($('aside').html());
+			Getter( 'tesis', 'codts|titulo|rutaubic', '#lista' );
+
+
 			Getter( 'materia', 'CODMAT|nombre|sigla', '#mat' );
 			Getter( 'licencia', 'codlic|tipo|motocosto', '#lic' );
 			Getter( 'categoria', 'codcat|nombre', '#cat' );
@@ -150,43 +147,55 @@
 			// Click en el boton Guardar
 			$('#save').click(function(e){
 				e.preventDefault();
-				alert('Seguardaran los camios');
 				var table="tesis";
-				var cols = "titulo|tamanio|idioma|rutaubic|CODMAT|CODCAT|CODTP|CODLIC|fecha_elaboracion|extension|codtesis|descripcion";
-				var values = $('#titulo').val() + "|"+ $('#tamanio').val() + "|" + $('#idioma').val() + "|" + $('#archivo').val()+"|";
-				values += $('#mat').val() + "|" + $('#cat').val() + "|" + $('#tp').val() + "|" + $('#lic').val() + "|" + $('#fecha').val() + "|";
-				values += $('#extension').val() + "|" + $('#codtesis').val()+ "|" + $('#descripcion').val();
+				var archivo="";
+				if (document.querySelectorAll('#archivo')[0].files.length!=0) {
+					archivo = document.querySelectorAll('#archivo')[0].files[0].name;
 
-				console.log('values-------------------------------------------');	
-				console.log(values);
-				console.log('-------------------------------------------');	
+				var cols = "titulo|tamanio|idioma|rutaubic|CODMAT|CODCAT|CODTP|CODLIC|fecha_elaboracion|extension|codtesis|descripcion";
+				var values = $('#titulo').val() + "|";
+				values += $('#tamanio').val() + "|";
+				values += $('#idioma').val() + "|";
+				values += archivo + "|";
+				values += $('#mat').val() + "|";
+				values += $('#cat').val() + "|";
+				values += $('#tp').val() + "|";
+				values += $('#lic').val() + "|";
+				values += $('#fecha').val() + "|";
+				values += $('#extension').val() + "|";
+				values += $('#codtesis').val()+ "|";
+				values += $('#descripcion').val();
+
 				Saver(table,cols,values);
 
-				Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
+				}else{alert('Debe llenar todos los campos y seleccionar un archivo');return;}
+
+				refresh();
 			});
-
-
-			// Eventos personalizados
-			$('body').on('LoadItems', function(e,data){
-				// ui(a_donde).loader( en_que, que_cosas );
-				ui('#lista').load('aside', data);
-			});
-
-
 
 		});
 		
 			// Click en os botones editar
-			$('body').on('click', '.delete', function(e){
+		$('body').on('click', '.delete', function(e){
 
-				if(confirm('¿Seguro que quieres eliminar esta materia?')) {
-					var id = e.currentTarget.parentNode.childNodes[1].innerText;
+			if(confirm('¿Seguro que quieres eliminar esta materia?')) {
+				var id = e.currentTarget.parentNode.childNodes[1].innerText;
+				Remover( 'tesis', 'codts', id )
 
-					Remover('tesis','codts',id);
+				refresh();
+			}
+		});
 
-					Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
-				}
-			});
+		function refresh(){
+			$('#lista').html($('aside').html());
+			Getter( 'tesis', 'codts|titulo|tamanio', '#lista' );
+		}
+
+
+		var archivo = document.querySelectorAll('#archivo')[0];
+		archivo.onchange = function(){ uploadFile( this.files[0] ); }
+
+
 	</script>
 </body>
 </html>
