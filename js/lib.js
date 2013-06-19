@@ -16,7 +16,7 @@ function Ajax(destinity, data, trigent){
 	// ACTIVATE : es para enviar datos, recibir datos y luego activar un evento personalizado
 ---------------------------------------------------------------------------------------------*/
 	return {
-		sending : function(){
+		send : function(){
 			$.ajax({
 				url: destinity,
 				type: 'POST',
@@ -108,6 +108,16 @@ function trim(str) {
 
 }
 
-function Getters(){
-	
+ 
+function Getter( table, cols, temp ){
+	data = { 'cols':cols, 'table':table, 'temp':temp };
+	Ajax('core/getter.php', { 'cols':cols, 'table':table, 'temp':temp }, 'Render').activate();
 }
+
+$(document).on('ready,',function(){
+	$('body').on('Render',function(e,data){
+		console.log('Se rendeara');
+		console.log(data);
+		ui(data.temp).load(data.temp, data.fill);
+	});
+});

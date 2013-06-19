@@ -29,9 +29,6 @@ include('config.php');
 
 			$materias['materias'][]= $materia;
 		}	
-	
-	
-
 
 	echo json_encode($materias);	
 
