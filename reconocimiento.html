@@ -2,74 +2,35 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>usuario</title>
+	<title>reconocimiento</title>
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/fonts.css">
 	<link rel="stylesheet" href="css/common.css">		
 </head>
-<body id="usuario">
+<body id="reconocimiento">
 	<div class="row">
 		<div class="span4"></div>
 		<div class="span8">
-			<h2>usuario</h2>
+			<h2>reconocimiento</h2>
 			<form action="" class="form">
 				<div class="control-group">
 					<label for="nombre" class="control-label">nombre</label>
 					<div class="controls">
-						<input type="text" id="nombre" placeholder="Nombre del usuario">
+						<input type="text" id="nombre" placeholder="Nombre del reconocimiento">
 					</div>
 				</div>
 				<div class="control-group">
-					<label for="apellido" class="control-label">apellido</label>
+					<label for="descripcion" class="control-label">descripcion</label>
 					<div class="controls">
-						<input type="text" id="apellido" placeholder="apellido del usuario">
-					</div>
-				</div>
-				<div class="control-group">
-					<label for="sexo" class="control-label">Genero</label>
-					<div class="controls">
-						<input type="text" id="sexo" placeholder="f si es femenino y m si es masculino">
-					</div>
-				</div>
-				<div class="control-group">
-					<label for="username" class="control-label">username</label>
-					<div class="controls">
-						<input type="text" id="username" placeholder="username del usuario">
-					</div>
-				</div>
-				<div class="control-group">
-					<label for="pasword" class="control-label">contaseña</label>
-					<div class="controls">
-						<input type="text" id="pasword" placeholder="contraseña del usuario">
-					</div>
-				</div>
-				<div class="control-group">
-					<label for="fechanac" class="control-label">Fecha Nacimiento</label>
-					<div class="controls">
-						<input type="date" id="fechanac" placeholder="fecha de nacimiento del usuario">
-					</div>
-				</div>
-
-				<div class="control-group">
-					<label for="nacionalidad" class="control-label">nacionalidad</label>
-					<div class="controls">
-						<input type="text" id="nacionalidad" placeholder="nacionalidad del usuario">
+						<input type="text" id="descripcion" placeholder="descripcion del reconocimiento">
 					</div>
 				</div>
 				
 				<div class="control-group">
-					<label for="correo" class="control-label">correo oficial</label>
-					<div class="controls">
-						<input type="text" id="correo" placeholder="correo del usuario">
-					</div>
-				</div>
-
-				
-				<div class="control-group">
-					<label for="tipo" class="control-label">tipo</label>
-					<select id="tipo" >
+					<label for="usuario" class="control-label">usuario</label>
+					<select id="usuario" >
 						{{#rows}}
-						<option value="{{codt}}">  {{nombret}}</option>
+						<option value="{{codu}}">{{nombreu}}</option>
 						{{/rows}}
 					</select>
 				</div>
@@ -103,9 +64,7 @@
 		</div>
 		{{/materias}}
 	</aside>
-	
-
-	<script src="js/jquery.js"></script>	
+		<script src="js/jquery.js"></script>	
 	<script src="js/mustache.js"></script>	
 	<script src="js/lib.js"></script>	
 	<script src="js/bootstrap.js"></script>
@@ -118,20 +77,25 @@
 			});
 
 			Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
-			Getter( 'tipo', 'codt|nombret', '#tipo' );
+			Getter( 'usuario', 'codu|nombreu', '#usuario' );
+
 			// Click en el boton Guardar
 			$('#save').click(function(e){
 				e.preventDefault();
-				var nombremat = $('#nombremat').val();
-				var siglamat = $('#siglamat').val();
+				alert('Seguardaran los camios');
+				var table="tesis";
+				var cols = "titulo|tamanio|idioma|rutaubic|CODMAT|CODCAT|CODTP|CODLIC|fecha_elaboracion|extension|codtesis|descripcion";
+				var values = $('#titulo').val() + "|"+ $('#tamanio').val() + "|" + $('#idioma').val() + "|" + $('#archivo').val()+"|";
+				values += $('#mat').val() + "|" + $('#cat').val() + "|" + $('#tp').val() + "|" + $('#lic').val() + "|" + $('#fecha').val() + "|";
+				values += $('#extension').val() + "|" + $('#codtesis').val()+ "|" + $('#descripcion').val();
 
-				var json = { nombre:nombremat, sigla:siglamat, op:'new' };
-				console.log(json);
-				Ajax('core/materia_abm.php', json ).sending();
+				console.log('values-------------------------------------------');	
+				console.log(values);
+				console.log('-------------------------------------------');	
+				Saver(table,cols,values);
 
 				Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
 			});
-
 
 			// Eventos personalizados
 			$('body').on('LoadItems', function(e,data){
