@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Materia</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/fonts.css">
+	<link rel="stylesheet" href="css/common.css">		
+</head>
+<body id="materia">
+	<div class="row">
+		<div class="span4"></div>
+		<div class="span8">
+			<h2>Materia</h2>
+			<form action="" class="form">
+				<div class="control-group">
+					<label for="nombremat" class="control-label">Nombre</label>
+					<div class="controls">
+						<input type="text" id="nombremat" placeholder="Nombre de la Materia">
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="siglamat" class="control-label">Sigla</label>
+					<div class="controls">
+						<input type="text" id="siglamat" placeholder="Sigla de la Materia">
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button id ="save" class="btn btn-success">Guardar</button>
+						<button id ="clean" class="btn btn-info">Limpiar</button>
+						<button id ="cancel" class="btn btn-danger">Cancelar</button>
+					</div>
+				</div>
+			</form>			
+		</div>
+		<div class="span4"></div>
+	</div>
+	<div class="row">
+		<div class="span4"></div>
+		<div class="span8" id="lista">
+				
+		</div>
+		<div class="span4"></div>
+	</div>
+
+	<aside>
+		{{#materias}}
+		<div class="item">
+			<span class="id small">{{id}}</span>
+			<span class="nombre">{{nombre}}</span>
+			<span class="sigla small">{{sigla}}</span>
+			<i class="edit icon-pencil"><span>Editar</span></i>
+			<i class="delete icon-cancel-2"><span>Eliminar</span></i>
+		</div>
+		{{/materias}}
+	</aside>
+	
+
+	<script src="js/jquery.js"></script>	
+	<script src="js/mustache.js"></script>	
+	<script src="js/lib.js"></script>	
+	<script src="js/bootstrap.js"></script>
+	<script src="js/main.js"></script>
+	<script>
+		$(document).on('ready',function(){
+			Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
+
+			// Click en el boton Guardar
+			$('#save').click(function(e){
+				e.preventDefault();
+				var nombremat = $('#nombremat').val();
+				var siglamat = $('#siglamat').val();
+
+				var json = { nombre:nombremat, sigla:siglamat, op:'new' };
+				console.log(json);
+				Ajax('core/materia_abm.php', json ).sending();
+
+				Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
+			});
+
+
+			// Eventos personalizados
+			$('body').on('LoadItems', function(e,data){
+				// ui(a_donde).loader( en_que, que_cosas );
+				ui('#lista').loader('aside', data);
+			});
+
+		});
+		
+			// Click en os botones editar
+			$('body').on('click', '.delete', function(e){
+
+				if(confirm('¿Seguro que quieres eliminar esta materia?')) {
+					var id = e.currentTarget.parentNode.childNodes[1].innerText;
+					var json = { id:id, op:'delete' }
+
+					Ajax('core/materia_abm.php', json ).sending();
+					Ajax('core/materia_ls.php', {}, 'LoadItems').activate();
+				}
+			});
+	</script>
+</body>
+</html>

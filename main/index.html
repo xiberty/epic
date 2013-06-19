@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>HOME - MULTINEXT</title>
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/fonts.css">
+	<link rel="stylesheet" href="css/modern.css">
+	<link rel="stylesheet" href="css/main.css">
+	<script src="js/jquery.js"></script>
+	<script src="js/accordion.js"></script>
+	<script src="js/carousel.js"></script>
+	<script src="js/main.js"></script>
+</head>
+<body>
+		<header>
+			<div id="logo"></div>
+			<div id="banner">
+				<h1>Banco Multimedial</h1>
+				<h2>Universidad Mayor de San Andres - Informatica</h2>
+			</div>
+			<div id="signup">
+				<span class="title">INICIA SESION</span>
+				<form >
+					<div class="input-control text">
+				        <input id="name" type="text" placeholder="Nombre" />
+				        <button class="btn-clear"></button>
+				    </div>
+
+				    <div class="input-control password">
+				        <input type="text" placeholder="Contraseña"  />
+				        <button class="btn-reveal"></button>
+				    </div>
+				    <button>Iniciar</button>
+				    <button>Cancelar</button>
+				</form>
+			</div>
+			<nav>
+				<li class="inf-blue"><i class="icon-home"></i><span>Inicio</span></li>
+				<li class="inf-red"><i class="icon-newspaper"></i><span>Publicaciones</span></li>
+				<li class="inf-green"><i class="icon-wrench"></i><span>Herramientas</span></li>
+				<li class="inf-yellow"><i class="icon-star-3"></i><span>Ranking</span></li>
+			</nav>
+		</header>
+
+		<section>
+			<article id="category">
+				<img src="images/search.png" alt="Resultado de la busqueda" id="search">
+				 <ul class="accordion dark" data-role="accordion">
+			        <li class="active">
+			            <a href="#">DOCUMENTACION</a>
+			            <div>
+			            	<ul>
+			            		<li>Libros de texto</li>
+			            		<li>Articulos cientificos</li>
+			            		<li>Practicas</li>
+			            	</ul>
+			            </div>
+			        </li>
+			        <li>
+			            <a href="#">VIDEO TUTORIALES</a>
+			            <div>
+			            	<ul>
+			            		<li>Video tutoriales</li>
+			            		<li>Subcategoria 2</li>
+			            	
+			            	</ul>
+			            </div>
+			        </li>
+			        <li>
+			            <a href="#">CODIGO FUENTE</a>
+			            <div>
+			            	<ul>
+			            		<li>Aplicaciones de Ejemplos</li>
+			            		<li>Aplicaciones Realizadas por estudiantes</li>
+			            		<li>Codigo liberado</li>
+			            	</ul>
+			            </div>
+			        </li>
+			        <li>
+			            <a href="#">TESIS</a>
+			            <div>
+			            	<ul>
+			            	<li>Proyecto de grado</li>
+			            		<li>Tesis de Investigacion</li>
+			            	</ul>
+			            </div>
+			        </li>
+			        <li>
+			            <a href="#">INSTALADORES</a>
+			            <div>
+			            	<ul>
+			            		<li>Herramientas propias</li>
+			            		<li>Herramientas de desarrollo</li>
+			            
+			            	</ul>
+			            </div>
+			        </li>
+			        <li>
+			            <a href="#">IMAGENES</a>
+			            <div>
+			            	<ul>
+			            		<li>IMAGENES DE MUESTRA</li>
+			            		<li>PACK DE IMAGENES</li>
+			            		<li>CAPTURAS DE PANTALLA</li>
+			            	</ul>
+			            </div>
+			        </li>
+			        
+			    </ul>
+			   
+			</article>
+			<article id="panel">
+				<div id="finder">
+					<form action="">
+						<span>Buscador</span>
+						<div class="input-control text">
+						        <input type="text" />
+						        <button class="btn-search"></button>
+					    </div>
+						<button id="options" class="image-button bg-color-darken fg-color-white">
+					        <i class="icon-plus bg-color-blue"></i>
+					        OPCIONES 
+					    </button>
+					</form>
+				</div>
+				<div id="resource">
+					<div class="carousel" data-role="carousel">
+				        <div class="slides">
+				            <div class="slide image" id="slide1">
+				                <img src="images/p1.jpg"/>
+				            </div>	
+				 
+				            <div class="slide mixed" id="slide2">
+				                <img src="images/p2.jpg"/>
+				            </div>
+
+				            <div class="slide mixed" id="slide3">
+				                <img src="images/p3.jpg"/>
+				            </div>
+				        </div>				 
+				        <span class="control left">‹</span>
+				        <span class="control right">›</span>
+				    </div>
+				    <div id="desc">
+				    	<h3>RESULTADOS PARA: HTML5 Y CSS3</h3>
+				    	<p>
+
+				        Lorem ipsum dolor sit amet, consectetur adipisicing elit.  
+				    	<br><br>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+						<br><br>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+				    	</p>
+				    	<div id="rank">
+			    		    <button class="shortcut">
+						        <span class="icon"><i class="icon-user"></i></span>
+						        <span class="label">Autor</span>
+						        <span class="badge bg-color-darken">100</span>
+						    </button>
+						    <button class="shortcut">
+						        <span class="icon"><i class="icon-bookmark"></i></span>
+						        <span class="label">Materia</span>
+						        <span class="badge bg-color-green">20</span>
+						    </button>
+						    <button class="shortcut">
+						        <span class="icon"><i class="icon-code"></i></span>
+						        <span class="label">Categoria</span>
+						        <span class="badge bg-color-blue">50</span>
+						    </button>
+						    <button class="shortcut">
+						        <span class="icon"><i class="icon-link"></i></span>
+						        <span class="label">Link</span>
+						        <span class="badge bg-color-red">70</span>
+						    </button>
+						    <button class="shortcut">
+						        <span class="icon"><i class="icon-search"></i></span>
+						        <span class="label">Ver</span>
+						        <span class="badge bg-color-orange">70</span>
+						    </button>
+				    	</div>
+				    </div>
+				</div>
+				<div id="comments">
+					<h2 id="title">Comentarios</h2>
+					<div class="past-comment">
+						<div class="user">
+							<img src="images/yo.jpg" alt="">
+							<span>@jvacx</span>
+						</div>
+						<div class="paragraph">
+							<h3>Mi primer comentario</h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, minima, vero quod asperiores omnis ab enim consequuntur eveniet eum porro praesentium provident qui officiis voluptate consequatur veniam fuga deleniti corporis.</p>
+						</div>
+					</div>
+					<div class="new-comment">
+						<form action="">
+							<label for="text">Victor </label>
+							<span>Escribe tu comentario:</span>
+							<div class="input-control textarea">
+						        <textarea></textarea>
+						    </div>
+						    <button class="bg-color-blueDark first" >Comentar</button>
+						    <button class="bg-color-red">Borrar</button>
+						</form>
+					</div>
+
+				</div>
+				<aside>
+					<ul>
+						<li><i class="icon-upload"></i><span>Subir</span></li>
+						<li><i class="icon-download"></i><span>Descargar</span></li>
+						<li><i class="icon-star-2"></i><span>Rankear</span></li>
+						<li><i class="icon-share-2"></i><span>Compartir</span></li>
+						<li><i class="icon-grid-view"></i><span>Detalles</span></li>					
+					</ul>
+				</aside>
+			</article>
+			
+		</section>
+		<footer>
+			<ul>
+				<li>Ayuda</li>
+				<li>Desarrolladores</li>
+				<li>Acerca de..</li>
+			</ul>
+		</footer>
+</body>
+</html>

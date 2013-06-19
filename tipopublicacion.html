@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Tipo publicación</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/common.css">	
+</head>
+<body id="categoria">
+	<div class="row">
+		<div class="span4"></div>
+		<div class="span8">
+			<h2>Tipo publicación</h2>
+			<form action="" class="form">
+				<div class="control-group">
+					<label for="tipopub" class="control-label">Tipo</label>
+					<div class="controls">
+						<input type="text" id="tipopub" placeholder="Tipo de la publicación">
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button id ="save" class="btn btn-success">Guardar</button>
+						<button id ="clean" class="btn btn-info">Limpiar</button>
+						<button id ="cancel" class="btn btn-danger">Cancelar</button>
+					</div>
+				</div>
+			</form>			
+		</div>
+		<div class="span4"></div>
+	</div>
+	<div class="row">
+		<div class="span4"></div>
+		<div class="span8" id="lista">
+				
+		</div>
+		<div class="span4"></div>
+	</div>
+
+
+	<aside>
+
+		<div class="item">
+			<span class="id"></span>
+			<span class="desripcion"></span>
+		</div>
+
+	</aside>
+
+
+	<script src="js/jquery.js"></script>	
+	<script src="js/mustache.js"></script>	
+	<script src="js/lib.js"></script>	
+	<script src="js/bootstrap.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
